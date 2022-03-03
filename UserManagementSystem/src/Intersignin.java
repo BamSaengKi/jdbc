@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public interface Intersignin {
@@ -6,4 +7,6 @@ public interface Intersignin {
 	
 //	int interLogin(Scanner sc);
 	UserDTO login(Scanner sc);
+	
+	List<UserDTO> selectAllUser();
 }

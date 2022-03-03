@@ -56,9 +56,19 @@ public class UserDTO {
 		sb.append("1. 아이디 : " + user_login_id + "\n");
 		sb.append("2. 암호 : " + user_login_pw + "\n");
 		sb.append("3. 성명 : " + user_name + "\n");
-		sb.append("4. 성명 : " + user_location + "\n");
+		sb.append("4. 지역 : " + user_location + "\n");
 		
 		return sb.toString();
 		
 	}
+	
+	
+	public String toString() { 
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(user_id + "\t" + user_login_id + "\t" + user_login_pw + "\t" + user_name + "\t"+ user_location + "\t"  + user_age + "\t");
+		
+		return sb.toString();
+	}
+
 }

@@ -1,0 +1,8 @@
+
+public interface InterUserDTO {
+	String showuserInfo();
+	
+	String toString();
+	
+	
+}

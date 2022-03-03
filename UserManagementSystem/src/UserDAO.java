@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class UserDAO implements InterUserDAO{
 	private String user = "root";
 	private String password = "785643";
 	private String driverName = "com.mysql.cj.jdbc.Driver";
+	
 	
 	
 	
@@ -138,6 +141,69 @@ public class UserDAO implements InterUserDAO{
 
 
 
+	@Override
+	public List<UserDTO> selectAllUser() {
+			
+		List<UserDTO> userList = new ArrayList<UserDTO>();
+		
+		try {
+			Class.forName(driverName);
+			
+			conn = DriverManager.getConnection(url, user, password);
+			
+			String sql = "SELECT user_id, user_login_id, user_login_pw, user_name, user_location , user_age FROM t_user";
+			
+			stmt = conn.prepareStatement(sql);
+			
+			rs = stmt.executeQuery();
+			
+			int cnt = 0;
+			while (rs.next()) {
+				cnt++;
+				if ( cnt == 1 ) 
+				userList = new ArrayList<UserDTO>();
+				int user_id = rs.getInt("user_id");
+				String user_login_id = rs.getString("user_login_id");
+				String user_login_pw = rs.getString("user_login_pw");
+				String user_name = rs.getString("user_name");
+				String user_location = rs.getString("user_location");
+				int user_age = rs.getInt("user_age");
+				
+				UserDTO userdto = new UserDTO();
+				
+				userdto.setUser_id(user_id);
+				userdto.setUser_login_id(user_login_id);
+				userdto.setUser_login_pw(user_login_pw);
+				userdto.setUser_name(user_name);
+				userdto.setUser_location(user_location);
+				userdto.setUser_age(user_age);
+				
+				userList.add(userdto);
+				
+				
+			}
+					
+		} catch (ClassNotFoundException e) {
+			System.out.println(">> 뭐가... 없다는데요? <<");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if ( rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+				
+			} catch (SQLException e) {
+					e.printStackTrace();
+					
+			}
+		}
+		return userList;
+	}
 
 	
 
