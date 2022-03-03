@@ -7,5 +7,7 @@ public interface InterUserDAO {
 	
 	List<UserDTO> selectAllUser();
 	
+	List<UserDTO> selectUserByAgeLine(int ageLine);
+	
 
 }
