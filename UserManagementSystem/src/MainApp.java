@@ -2,12 +2,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainApp {
-	
-	private static Object loginuser;
 
 	public static void menu() {
 		System.out.println("=================== >> 메뉴 << ===================");
-		System.out.println("1. 회원가입     2. 로그인    3. 로그아웃   " + "4. 내정보보기  \n" + "5. 모든 회원 정보 보기  " + "6. 연령대별 검색" + "  100. 종료");
+		System.out.println("1. 회원가입     2. 로그인    3. 로그아웃   " + "4. 내정보보기  \n" + "5. 모든 회원 정보 보기  " + "6. 연령대별 검색" +  "7. 내 정보 변경  " +  " 100. 종료");
 		System.out.println("=================================================");
 		System.out.print("\n > 메뉴번호 선택 :  ");
 	}
@@ -19,13 +17,15 @@ public class MainApp {
 		
 		String strMenuNo = "";
 		UserDTO loginuser = null;
+		
+		int n = 0;
 		do {
 			MainApp.menu();
 			strMenuNo = sc.nextLine();
 			
 			switch (strMenuNo) {
 			case "1":
-				int n = sn.insertUser(sc);
+				n = sn.insertUser(sc);
 				
 				String msg = (n==1)?">> 회원가입 성공!! <<":">> 회원가입 취소 또는 실패!! <<";
 				System.out.println("\n" + msg + "\n");
@@ -62,14 +62,7 @@ public class MainApp {
 					System.out.println(">> 현재 가입된 회원이 1명도 없습니다. << \n");
 					
 				}else { 
-					System.out.println("--------------------------------------------------");
-					System.out.println("번호\t아이디   \t암호   \t성명   \t지역   \t나이");
-					System.out.println("--------------------------------------------------");
-					
-					for (UserDTO user:userList) {
-						System.out.println(user);
-					}
-					System.out.println("\n\n");
+					printUserInfo(userList);
 				}
 				
 				break;
@@ -97,17 +90,32 @@ public class MainApp {
 					System.out.println(">> 현재 가입된 회원 중 연령대가 " + ageLine + " 대인 회원은 1명도 없습니다. << \n");
 				}
 				else {
-					System.out.println("--------------------------------------------------");
-					System.out.println("아이디\t암호\t\t성명\t주소\t\t가입일자\t\t생년월일\t\t나이\t성별");
-					System.out.println("--------------------------------------------------");
-					
-					for (UserDTO user : userList) {
-						System.out.println(user);
-					}
-					System.out.println("\n\n");
+					printUserInfo(userList);
 				}
 				
 				break;
+				
+			case "7":
+				if (loginuser == null) { 
+					System.out.println(">> 먼저 로그인하세요. <<");
+					continue;
+				}else {
+					System.out.println("\n" + loginuser.showUserInfo());
+					n = sn.updateUser(loginuser, sc);
+					System.out.println(n);
+					
+					
+					
+					if ( n == 1 ) {
+						System.out.println(">> 내정보 수정하기 성공했습니다. <<");
+					}
+					else { 
+						System.out.println(">> 내 정보 수정하기 실패 또는 취소했습니다. <<");
+					}
+				}
+				
+				break;
+				
 				
 				
 			case "100":
@@ -130,4 +138,21 @@ public class MainApp {
 		
 		
 	}
+	
+	public static void printUserInfo(List<UserDTO> userList) {
+		
+		System.out.println("--------------------------------------------------");
+		System.out.println("등록번호\t아이디\t암호\t성명\t지역\t나이");
+		System.out.println("--------------------------------------------------");
+		
+		for (UserDTO user : userList) {
+			System.out.println(user);
+		}
+		System.out.println("\n\n");
+	}
+	
+	
 }
+
+
+

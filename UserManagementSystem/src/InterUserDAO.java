@@ -9,5 +9,7 @@ public interface InterUserDAO {
 	
 	List<UserDTO> selectUserByAgeLine(int ageLine);
 	
+	int updateUser (UserDTO loginuser, Scanner sc);
+	
 
 }

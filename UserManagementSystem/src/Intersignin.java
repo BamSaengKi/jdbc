@@ -11,4 +11,6 @@ public interface Intersignin {
 	List<UserDTO> selectAllUser();
 	
 	List<UserDTO> selectUserByAgeLine(int ageLine);
+	
+	int updateUser ( UserDTO loginuser, Scanner sc);
 }

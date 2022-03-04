@@ -90,6 +90,35 @@ public class signin implements Intersignin {
 					
 		return userList;
 	}
+
+
+	@Override
+	public int updateUser(UserDTO loginuser, Scanner sc) {
+           int n = 0;
+           System.out.println("> 암호 :   ");
+           String user_login_pw = sc.nextLine();
+           
+           if(!"".equals(user_login_pw.trim())) {
+        	   loginuser.setUser_login_pw(user_login_pw);
+           }
+           
+           System.out.println("> 성명 :   ");
+           String user_name = sc.nextLine();
+           
+           if(!"".equals(user_name)) {
+        	   loginuser.setUser_name(user_name);
+           }
+           
+           System.out.println("> 주소 :   ");
+           String user_loaction = sc.nextLine();
+           
+           if(!"".equals(user_loaction)) {
+        	   loginuser.setUser_location(user_loaction);
+           }
+           
+           n = userDao.updateUser(loginuser, sc);
+		return n;
+	}
 	
 	
 	
